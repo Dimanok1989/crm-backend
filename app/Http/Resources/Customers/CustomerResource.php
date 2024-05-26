@@ -1,11 +1,17 @@
 <?php
 
-namespace App\Http\Resources\User;
+namespace App\Http\Resources\Customers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProfileResource extends JsonResource
+/**
+ * @property \App\Models\Customer $resource
+ * @property int $id
+ * @property string $name
+ * @property string $phone
+ */
+class CustomerResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,11 +23,7 @@ class ProfileResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'email' => $this->email,
             'phone' => $this->phone,
-            'avatar' => $this->avatar_url,
-            'gender' => $this->gender,
-            'birthday' => $this->birthday,
         ];
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Lead;
 use App\Models\User;
+use App\Observers\LeadObserver;
 use App\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,6 +23,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Lead::observe(LeadObserver::class);
         User::observe(UserObserver::class);
     }
 }

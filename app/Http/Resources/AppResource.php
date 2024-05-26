@@ -3,11 +3,15 @@
 namespace App\Http\Resources;
 
 use App\Http\Resources\User\ProfileResource;
+use App\Http\Services\AppService;
 use App\Http\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
 
+/**
+ * @property \App\Models\User $resource
+ */
 class AppResource extends JsonResource
 {
     /**
@@ -19,6 +23,7 @@ class AppResource extends JsonResource
     {
         return [
             'profile' => new ProfileResource($this->resource),
+            'menu' => app(AppService::class)->getMenu($this->resource),
             $this->mergeWhen(
                 $this->isAuth($request),
                 app(UserService::class)->auth($this->resource)

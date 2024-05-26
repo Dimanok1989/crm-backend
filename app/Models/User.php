@@ -52,4 +52,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Клиенты, принадлежащие пользователю
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
+
+    public function getAvatarUrlAttribute()
+    {
+        return asset('assets/default-avatar.jpg');
+    }
 }
