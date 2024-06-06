@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\FieldsController;
 use App\Http\Controllers\LeadsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,5 +23,7 @@ Route::prefix('v1')->name('v1.')->group(function () {
         Route::resource('leads', LeadsController::class);
         Route::get('customers/search', [CustomersController::class, 'search'])->name('customers.search');
         Route::resource('customers', CustomersController::class);
+
+        Route::resource('fields', FieldsController::class);
     });
 });

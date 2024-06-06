@@ -18,7 +18,12 @@ class AppService
             [
                 'route' => "/leads",
                 'name' => "Заявки",
-                'icon' => "list",
+                'icon' => "th list",
+            ],
+            [
+                'route' => "/settings",
+                'name' => "Настройки",
+                'icon' => "setting",
             ]
         ];
     }
