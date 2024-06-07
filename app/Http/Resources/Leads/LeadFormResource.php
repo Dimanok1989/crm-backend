@@ -3,11 +3,13 @@
 namespace App\Http\Resources\Leads;
 
 use App\Enums\Leads\LeadStatuses;
+use App\Facader\Fields;
 use App\Http\Resources\Customers\CustomerResource;
+use App\Http\Resources\Fields\FieldResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CreateLeadResource extends JsonResource
+class LeadFormResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -26,6 +28,9 @@ class CreateLeadResource extends JsonResource
             'customers' => CustomerResource::collection(
                 $this->customers()->orderByDesc('id')->limit(20)->get(),
             ),
+            'fields' => FieldResource::collection(
+                Fields::list($request->user())
+            )
         ];
     }
 }

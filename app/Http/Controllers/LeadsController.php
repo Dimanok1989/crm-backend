@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Leads\LeadStatuses;
-use App\Http\Resources\Leads\CreateLeadResource;
 use App\Http\Resources\Leads\LeadDetailResource;
+use App\Http\Resources\Leads\LeadFormResource;
 use App\Http\Resources\Leads\LeadResource;
 use App\Http\Services\Leads\LeadsService;
 use App\Models\Customer;
@@ -51,9 +51,7 @@ class LeadsController extends Controller
     {
         $this->authorize('create', Lead::class);
 
-        return new CreateLeadResource(
-            $request->user()
-        );
+        return new LeadFormResource($request->user());
     }
 
     /**
@@ -88,8 +86,9 @@ class LeadsController extends Controller
      * Детальная страница заявки
      * 
      * @param \App\Models\Lead $lead
+     * @return \App\Http\Resources\Leads\LeadDetailResource
      */
-    public function show(Request $request, Lead $lead)
+    public function show(Lead $lead)
     {
         $this->authorize('view', $lead);
 
@@ -97,11 +96,20 @@ class LeadsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Данные для формы редактирования заявки
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Lead $lead
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function edit(string $id)
+    public function edit(Request $request, Lead $lead)
     {
-        //
+        $this->authorize('edit', $lead);
+
+        $response = (new LeadFormResource($request->user()))->toArray($request);
+        $response['lead'] = new LeadResource($lead);
+
+        return response()->json($response);
     }
 
     /**

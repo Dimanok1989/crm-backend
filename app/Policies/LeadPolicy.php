@@ -33,6 +33,14 @@ class LeadPolicy
     }
 
     /**
+     * Determine whether the user can view the model.
+     */
+    public function edit(User $user, Lead $lead): bool
+    {
+        return $user->id == $lead->user_id;
+    }
+
+    /**
      * Determine whether the user can update the model.
      */
     public function update(User $user, Lead $lead): bool

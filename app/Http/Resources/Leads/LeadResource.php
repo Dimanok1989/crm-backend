@@ -21,13 +21,15 @@ class LeadResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'status_id' => $this->status_id,
             'status' => LeadStatuses::resource($this->status_id),
             'name' => $this->name ?: $this->number,
             'number' => $this->number,
+            'customer_id' => $this->customer_id,
             'customer' => $this->customer ? new CustomerResource($this->customer) : null,
-            'eventAt' => $this->event_start_at,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
+            'event_start_at' => $this->event_start_at,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
